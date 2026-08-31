@@ -1,0 +1,48 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "jmarlique-tools",
+  "metadata": {
+    "description": "Josue Marlique's plugins for Claude Code and Codex. Each plugin lives in its own repository; this one is only the catalog."
+  },
+  "owner": {
+    "name": "Josue Marlique",
+    "url": "https://github.com/josuemarlique"
+  },
+  "plugins": [
+    {
+      "name": "handoff",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/josuemarlique/handoff.git",
+        "sha": "47500af06d6dd4000d90abe98c417004d1946e54"
+      },
+      "description": "Session handoff for zero-loss continuity across coding agent conversations.",
+      "version": "1.3.0",
+      "category": "productivity",
+      "tags": [
+        "handoff",
+        "session",
+        "continuity",
+        "context-transfer",
+        "workflow"
+      ]
+    },
+    {
+      "name": "showme",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/josuemarlique/showme.git",
+        "sha": "93f923e21b41057c528ecc1e17fba6c53e6a787d"
+      },
+      "description": "Review agent-generated HTML in a local browser: point at elements, annotate text, and send feedback back to the agent instead of reading a wall of text.",
+      "version": "0.1.63",
+      "category": "productivity",
+      "tags": [
+        "html",
+        "review",
+        "artifacts",
+        "visualization"
+      ]
+    }
+  ]
+}
