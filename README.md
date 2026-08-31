@@ -72,8 +72,11 @@ If you added the old one, switch over once per machine:
 ## Checks
 
 ```sh
-python3 -m unittest discover -s tests -t .
+python3 -m unittest discover -s tests -t .   # the file itself is well formed
+python3 scripts/check_pins.py                # each pin resolves and matches (needs network)
 ```
+
+`check_pins.py` takes plugin names too, so `python3 scripts/check_pins.py showme` checks just one.
 
 ## License
 
