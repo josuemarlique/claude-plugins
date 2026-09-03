@@ -14,10 +14,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/josuemarlique/handoff.git",
-        "sha": "47500af06d6dd4000d90abe98c417004d1946e54"
+        "sha": "3ad44956ec57ae6875a96218b1595c84ea81f241"
       },
       "description": "Session handoff for zero-loss continuity across coding agent conversations.",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "category": "productivity",
       "tags": [
         "handoff",
@@ -32,10 +32,10 @@
       "source": {
         "source": "url",
         "url": "https://github.com/josuemarlique/showme.git",
-        "sha": "93f923e21b41057c528ecc1e17fba6c53e6a787d"
+        "sha": "9cc0d06f778a2dc9b64810c157fae8ae2b20a7e9"
       },
       "description": "Review agent-generated HTML in a local browser: point at elements, annotate text, and send feedback back to the agent instead of reading a wall of text.",
-      "version": "0.1.63",
+      "version": "0.1.64",
       "category": "productivity",
       "tags": [
         "html",

@@ -4,11 +4,13 @@ The plugin catalog for [Claude Code](https://docs.claude.com/en/docs/claude-code
 
 This repository holds **no plugin code**.
 It is a list.
-Each plugin lives in its own repository, and this file points at an exact commit in each one.
+Each plugin lives in its own repository, and every entry points at an exact commit.
 
 ## Install
 
 Add the catalog once, then install whatever you want from it:
+
+### Claude Code
 
 ```
 /plugin marketplace add josuemarlique/claude-plugins
@@ -16,12 +18,15 @@ Add the catalog once, then install whatever you want from it:
 /plugin install showme@jmarlique-tools
 ```
 
-In Codex:
+### Codex CLI
 
 ```
 codex plugin marketplace add josuemarlique/claude-plugins
 codex plugin add handoff@jmarlique-tools
+codex plugin add showme@jmarlique-tools
 ```
+
+Start a new Codex thread after installing so it loads the new plugin skills.
 
 ### Why the two names differ
 
@@ -38,26 +43,45 @@ They do not have to match, and here they do not.
 
 ## Updating a plugin
 
-Every entry pins an exact commit, so a new version takes two steps:
+Every entry pins an exact commit, so a new version takes three steps:
 
 1. Push the change in the plugin's own repository.
 2. Update that entry's `sha`, and its `version` if it changed, in `.claude-plugin/marketplace.json` here.
+3. Update the matching `url` and `sha` in `.agents/plugins/marketplace.json` here.
 
-Step 2 is easy to forget and fails silently: without it, everyone keeps installing the old commit and nothing reports a problem.
+The two catalogs deliberately duplicate only the source coordinates each host needs.
+Their tests require repository URLs, plugin order, and pinned SHAs to stay identical.
+
+Steps 2 and 3 are easy to forget and fail silently: without them, one host can keep installing an old commit while the other moves forward.
 CI guards it.
 On every push, and once a week on a schedule, it clones each pinned commit and fails if the commit is missing or if the version the plugin actually declares disagrees with the version listed here.
+For every Codex entry, it also requires that commit to contain the native Codex plugin manifest.
 
-Then, on each machine:
+Then refresh the marketplace on each machine.
+
+For Claude Code:
 
 ```
 /plugin marketplace update jmarlique-tools
 ```
 
-That refreshes the catalog and the plugins installed from it in one step.
+That refreshes the Claude catalog and the plugins installed from it in one step.
+
+For Codex CLI, upgrade the marketplace snapshot and reinstall whichever plugins changed:
+
+```sh
+codex plugin marketplace upgrade jmarlique-tools
+codex plugin remove handoff@jmarlique-tools
+codex plugin add handoff@jmarlique-tools
+codex plugin remove showme@jmarlique-tools
+codex plugin add showme@jmarlique-tools
+```
+
+Start a new Codex thread afterward so it picks up the updated skills.
 
 ## Moved here from the handoff repository
 
-This catalog used to live inside `josuemarlique/handoff`, which was fine while that repo shipped the only plugin.
+The Claude Code catalog used to live inside `josuemarlique/handoff`, which was fine while that repo shipped the only plugin.
 Once it listed a second one, adding a marketplace called "handoff" to install something else was confusing, and shipping that other plugin meant committing to the handoff repository.
 
 The marketplace name is unchanged, so `handoff@jmarlique-tools` still resolves.
@@ -72,8 +96,8 @@ If you added the old one, switch over once per machine:
 ## Checks
 
 ```sh
-python3 -m unittest discover -s tests -t .   # the file itself is well formed
-python3 scripts/check_pins.py                # each pin resolves and matches (needs network)
+python3 -m unittest discover -s tests -t .   # both catalog files are well formed and aligned
+python3 scripts/check_pins.py                # each pin and both host manifests match (needs network)
 ```
 
 `check_pins.py` takes plugin names too, so `python3 scripts/check_pins.py showme` checks just one.
