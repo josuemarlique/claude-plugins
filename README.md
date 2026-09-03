@@ -63,9 +63,11 @@ For Claude Code:
 
 ```
 /plugin marketplace update jmarlique-tools
+/plugin update handoff@jmarlique-tools
+/plugin update showme@jmarlique-tools
 ```
 
-That refreshes the Claude catalog and the plugins installed from it in one step.
+The first command refreshes the Claude catalog. Run the following update command for each installed plugin that changed.
 
 For Codex CLI, upgrade the marketplace snapshot and reinstall whichever plugins changed:
 
